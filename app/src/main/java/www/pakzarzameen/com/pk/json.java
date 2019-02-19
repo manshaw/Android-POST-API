@@ -1,9 +1,11 @@
 package www.pakzarzameen.com.pk;
 
 import android.os.AsyncTask;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -11,10 +13,11 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class json extends AsyncTask<Void,Void,Void> {
+public class json extends AsyncTask<Void, Void, Void> {
     JSONObject jsonParam = new JSONObject();
     String response = "";
     int code;
+
     @Override
     protected Void doInBackground(Void... voids) {
         URL url;
@@ -24,10 +27,10 @@ public class json extends AsyncTask<Void,Void,Void> {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept","application/json");
-            conn.setRequestProperty("Accept-Charset","UTF-8");
-            conn.setRequestProperty("Accept-Language","en-GB");
-            conn.setRequestProperty("Accept-Encoding","identity");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Accept-Charset", "UTF-8");
+            conn.setRequestProperty("Accept-Language", "en-GB");
+            conn.setRequestProperty("Accept-Encoding", "identity");
             conn.setDoOutput(true);
             conn.setDoInput(true);
             jsonParam = makeJsonRequest("AUF");
@@ -47,19 +50,21 @@ public class json extends AsyncTask<Void,Void,Void> {
         }
         return null;
     }
+
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         //MainActivity.Data.setText(Integer.toString(code));
-        MainActivity.Data.setText(response+code);
+        MainActivity.Data.setText("Code: " + code + "\n" + "Response: " + response);
     }
+
     private JSONObject makeJsonRequest(String landName) {
         JSONObject jsonObject = new JSONObject();
         JSONObject geo_json = new JSONObject();
         JSONObject label = new JSONObject();
         try {
             geo_json.put("type", "Feature");
-            label.put("label","test02");
+            label.put("label", "test02");
             geo_json.put("properties", label);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -73,23 +78,23 @@ public class json extends AsyncTask<Void,Void,Void> {
             coordinates.put(innerArray);
             JSONArray entry = new JSONArray();
             entry.put(73.069711);
-            entry.put( 31.450094);
+            entry.put(31.450094);
             innerArray.put(entry);
             entry = new JSONArray();
             entry.put(73.075565);
-            entry.put( 31.455392 );
+            entry.put(31.455392);
             innerArray.put(entry);
             entry = new JSONArray();
-            entry.put(73.078664);
-            entry.put( 31.449542 );
+            entry.put(73.078660);
+            entry.put(31.449542);
             innerArray.put(entry);
             entry = new JSONArray();
             entry.put(73.074919);
-            entry.put( 31.446025 );
+            entry.put(31.446025);
             innerArray.put(entry);
             entry = new JSONArray();
             entry.put(73.069711);
-            entry.put( 31.450094);
+            entry.put(31.450094);
             innerArray.put(entry);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -106,7 +111,7 @@ public class json extends AsyncTask<Void,Void,Void> {
 //            e.printStackTrace();
 //        }
         try {
-            jsonObject.put("data",geo_json);
+            jsonObject.put("data", geo_json);
         } catch (JSONException e) {
             e.printStackTrace();
         }
